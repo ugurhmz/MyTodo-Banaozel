@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-
+{% load mathfilters %}
 {% block title %} Todo {% endblock %}
 
 {% block content %}
@@ -14,9 +14,46 @@
             <a href="{% url 'create' %}" class="btn btn-success d-flex  justify-content-center p-2">
                    Yeni Eğitim
             </a>
-            <hr class="my-4">
+
         </div>
+
+
     </div>
+
+    <table class="table" style="margin-top: 8rem;">
+
+      <thead>
+        <tr>
+          <th scope="col">Kurslar</th>
+          <th scope="col">Toplam SÜRE</th>
+          <th scope="col">Tamamlanan süre</th>
+          <th scope="col">Bitmeye Kalan süre</th>
+          <th scope="col">Oluşturulma Tarihi</th>
+        </tr>
+      </thead>
+
+      <tbody>
+      {% for kurs in posts %}
+        <tr>
+          <th scope="row">{{ kurs.title }}</th>
+          <td>{{ kurs.educationTime }}</td>
+          <td>{{ kurs.countFinished }}</td>
+          <td>{{ kurs.educationTime|sub:kurs.countFinished }}</td>
+          <td>{{ kurs.publishing_date|timesince }}</td>
+
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+
+
+
+
+
+
+
+
+
 </div>
 
 
