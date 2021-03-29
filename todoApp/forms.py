@@ -12,6 +12,7 @@ class TodoCreatForm(forms.ModelForm):
                 'description',
                 'image',
                 'isFinished',
+                'sira',
                 'educationTime'
             ]
 

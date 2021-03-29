@@ -42,9 +42,14 @@
       <tbody>
       {% for kurs in posts %}
         {% if not kurs.isFinished%}
+
            <tr>
 
-              <th scope="row"><a href="{% url 'detay' kurs.slug %}" style="text-decoration: none;">{{ kurs.title }} </a></th>
+              <th scope="row">
+                <a href="{% url 'detay' kurs.slug %}" style="text-decoration: none;">{{ kurs.sira }} | {{ kurs.title }}
+                  </a>
+              </th>
+
                <td class="bg-light text-success text-center font-weight-bold">{{ kurs.educationTime }}</td>
               <td >{{ kurs.countFinished }}</td>
 
@@ -65,6 +70,7 @@
         {% endif %}
 
         </tr>
+
      {% endif %}
 
       {% endfor %}

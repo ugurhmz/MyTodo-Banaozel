@@ -7,6 +7,7 @@ from django.urls import reverse
 class PostTodo(models.Model):
     title = models.CharField(max_length=250)
     description = models.TextField(null=True, blank=True)
+    sira = models.PositiveIntegerField(default=1)
     publishing_date = models.DateTimeField(auto_now_add = True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default=1)
     image = models.ImageField(null=True, blank=True, upload_to='resimler/', default='resimler/default_img.jpg')
