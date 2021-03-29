@@ -14,3 +14,11 @@ class TodoCreatForm(forms.ModelForm):
                 'isFinished',
                 'educationTime'
             ]
+
+
+class TodoUpdateForm(forms.ModelForm):
+
+
+        class Meta:
+            model = PostTodo
+            exclude = ('slug',)

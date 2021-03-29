@@ -1,8 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.conf import settings
-
-
+from django.urls import reverse
 
 
 class PostTodo(models.Model):
@@ -19,6 +18,11 @@ class PostTodo(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_delete_url(self):
+        return reverse('todo_sil', kwargs={'slug': self.slug})
+
+
 
 
     def save(self,*args,**kwargs):

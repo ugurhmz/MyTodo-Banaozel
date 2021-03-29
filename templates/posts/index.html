@@ -20,6 +20,8 @@
 
     </div>
 
+    {% include 'posts/messages.html' %}
+
     <table class="table" style="margin-top: 8rem;">
 
       <thead>
@@ -27,21 +29,30 @@
           <th scope="col">Kurslar</th>
           <th scope="col">Toplam SÜRE</th>
           <th scope="col">Tamamlanan süre</th>
-          <th scope="col">Bitmeye Kalan süre</th>
+          <th scope="col">Kalan süre ( saat )</th>
           <th scope="col">Oluşturulma Tarihi</th>
+          <th scope="col">İşlemler </th>
         </tr>
       </thead>
 
       <tbody>
       {% for kurs in posts %}
-        <tr>
-          <th scope="row">{{ kurs.title }}</th>
-          <td>{{ kurs.educationTime }}</td>
-          <td>{{ kurs.countFinished }}</td>
-          <td>{{ kurs.educationTime|sub:kurs.countFinished }}</td>
-          <td>{{ kurs.publishing_date|timesince }}</td>
 
+           <tr>
+
+              <th scope="row"><a href="{% url 'todo_guncelle' kurs.slug %}" style="text-decoration: none;">{{ kurs.title }} </a></th>
+               <td class="bg-light text-success text-center font-weight-bold">{{ kurs.educationTime }}</td>
+              <td >{{ kurs.countFinished }}</td>
+
+              <td class="bg-dark text-white text-center font-weight-bolder">{{ kurs.educationTime|sub:kurs.countFinished }}</td>
+              <td>{{ kurs.publishing_date|timesince }}</td>
+             <td >
+              <a href="{% url 'todo_guncelle' kurs.slug %}" class="btn btn-warning" role="button">Güncelle</a>
+              <a href="{% url 'todo_sil' kurs.slug %}" class="btn btn-danger" role="button">Sil</a>
+             </td>
         </tr>
+
+
       {% endfor %}
       </tbody>
     </table>

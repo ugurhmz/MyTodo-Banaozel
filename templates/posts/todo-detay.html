@@ -14,6 +14,9 @@
                 <p class="card-text">Kurs Açıklaması : {{ detay.description }}</p>
                <p class="card-text">Kurs Toplam Saat : {{ detay.educationTime  }}   </p>
               <p class="card-text"> Kalan süre : {{ detay.educationTime|sub:detay.countFinished }}</p>
+
+                  <a href="{% url 'index' %}" class="btn btn-dark">Anasayafa</a>
+
               </div>
             </div>
 

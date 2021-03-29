@@ -1,11 +1,13 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 
 from .forms import *
 from .models import *
-from django.db.models import F
+
+
 #_________________________________ IndexView _____________________________________
 class IndexView(ListView):
     template_name ='posts/index.html'
@@ -36,16 +38,18 @@ def post_detail(request,slug):
 
 #_________________________________ todo_ekle _____________________________________
 
+@login_required(login_url='/')
 def todo_ekle(request):
     form = TodoCreatForm(request.POST or None, files= request.FILES or None)
 
     if form.is_valid():
-        post = form.save()
+        post = form.save(commit=False)
         post.user = request.user
         post.save()
+        form.save_m2m()
         messages.success(request,"Başarılı eklendi..")
 
-        return redirect('index')
+        return redirect('detay',slug=post.slug)
 
     context = {
         'form':form,
@@ -53,3 +57,45 @@ def todo_ekle(request):
 
 
     return render(request,"posts/todo-ekle.html", context= context)
+
+
+#_________________________________ todo_guncelle _____________________________________
+
+def todo_guncelle(request,slug):
+
+        post = get_object_or_404(PostTodo, slug=slug, user = request.user)
+        form = TodoUpdateForm(request.POST or None, files=request.FILES or None, instance=post)
+
+        if form.is_valid():
+             form.save()
+             messages.success(request,"Form Başarıyla Güncellendi")
+             return redirect('index')
+
+
+        context = {
+            'form':form,
+        }
+
+
+        return render(request,"posts/todo-guncelle.html",context=context)
+
+
+
+#_________________________________ todo_sil _____________________________________
+
+@login_required(login_url='/')
+def todo_sil(request,slug):
+    get_object_or_404(PostTodo, slug=slug, user=request.user).delete()
+    messages.warning(request,"Kurs Başarıyla silindi")
+
+
+    return redirect("index")
+
+
+
+
+
+
+
+
+
