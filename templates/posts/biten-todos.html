@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} Biten TODOS {% endblock title %}
+
+
+
+
+{% block content %}
+
+
+    <h1>TAMAMLANANLAR</h1>
+   {%  for bitenpost in bitenposts %}
+
+       <ul>
+            <li><h3>Ad: {{ bitenpost.title }}</h3></li>
+          <li><h3>Tamamlanan Süre: {{ bitenpost.educationTime }}</h3></li>
+
+           <a href="{% url 'todo_guncelle' bitenpost.slug %}" class="btn btn-success">Güncelle</a>
+       </ul>
+
+    {% endfor %}
+{% endblock %}

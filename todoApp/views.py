@@ -14,6 +14,10 @@ class IndexView(ListView):
     model = PostTodo
     context_object_name = 'posts'
 
+    def get_queryset(self):
+
+        return PostTodo.objects.all().order_by('-id')
+
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(IndexView,self).get_context_data(**kwargs)
@@ -60,7 +64,7 @@ def todo_ekle(request):
 
 
 #_________________________________ todo_guncelle _____________________________________
-
+@login_required(login_url='/')
 def todo_guncelle(request,slug):
 
         post = get_object_or_404(PostTodo, slug=slug, user = request.user)
@@ -93,9 +97,30 @@ def todo_sil(request,slug):
 
 
 
+#_________________________________ biten_todolar _____________________________________
+
+class BitenTodo(ListView):
+    template_name = 'posts/biten-todos.html'
+    model = PostTodo
+    context_object_name = 'bitenposts'  #key ->value gibi düşünebilirsin.
+
+    def get_queryset(self):
+
+        return PostTodo.objects.filter(isFinished=True).order_by('-id')
+
+
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(BitenTodo,self).get_context_data(**kwargs)
+        context['isFinished'] = PostTodo.objects.all().filter(isFinished=True)
+
+        return context
 
 
 
 
-
-
+def yes_finish(request, slug):
+    todo = PostTodo.objects.get(slug=slug)
+    todo.isFinished = True
+    todo.save()
+    return redirect("index")

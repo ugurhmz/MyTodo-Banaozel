@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     #third-party
     'crispy_forms',
     'mathfilters',
+
 ]
 
 MIDDLEWARE = [

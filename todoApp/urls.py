@@ -9,4 +9,6 @@ urlpatterns = [
     path('create/',todo_ekle, name='create' ),
     path('todo-guncelle/<slug:slug>',todo_guncelle, name='todo_guncelle' ),
     path('todo-sil/<slug:slug>',todo_sil, name='todo_sil' ),
+    path('biten-todo',BitenTodo.as_view(),name='biten_todo'),
+    path('yes_finish/<slug:slug>', yes_finish, name="yes_finish"),
 ]

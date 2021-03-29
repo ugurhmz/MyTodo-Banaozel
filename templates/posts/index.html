@@ -31,27 +31,41 @@
           <th scope="col">Tamamlanan süre</th>
           <th scope="col">Kalan süre ( saat )</th>
           <th scope="col">Oluşturulma Tarihi</th>
-          <th scope="col">İşlemler </th>
+            {% if request.user.is_authenticated %}
+             <th scope="col">İşlemler </th>
+                <th>Bitti mi?</th>
+
+            {% endif %}
         </tr>
       </thead>
 
       <tbody>
       {% for kurs in posts %}
-
+        {% if not kurs.isFinished%}
            <tr>
 
-              <th scope="row"><a href="{% url 'todo_guncelle' kurs.slug %}" style="text-decoration: none;">{{ kurs.title }} </a></th>
+              <th scope="row"><a href="{% url 'detay' kurs.slug %}" style="text-decoration: none;">{{ kurs.title }} </a></th>
                <td class="bg-light text-success text-center font-weight-bold">{{ kurs.educationTime }}</td>
               <td >{{ kurs.countFinished }}</td>
 
               <td class="bg-dark text-white text-center font-weight-bolder">{{ kurs.educationTime|sub:kurs.countFinished }}</td>
               <td>{{ kurs.publishing_date|timesince }}</td>
+
+           {% if request.user.is_authenticated %}
              <td >
               <a href="{% url 'todo_guncelle' kurs.slug %}" class="btn btn-warning" role="button">Güncelle</a>
               <a href="{% url 'todo_sil' kurs.slug %}" class="btn btn-danger" role="button">Sil</a>
              </td>
-        </tr>
 
+                <td>
+                      <a class="btn btn-outline-primary" href="{% url 'yes_finish' kurs.slug %}" role="button">Yes</a>
+                </td>
+
+
+        {% endif %}
+
+        </tr>
+     {% endif %}
 
       {% endfor %}
       </tbody>

@@ -10,12 +10,12 @@
            <div class="card mt-2 align-items-center">
               <img src="{{ detay.image.url }}" class="card-img-top w-75 " alt="...">
               <div class="card-body">
-                <h5 class="card-title">Kurs Adı : {{ detay.title }}</h5>
-                <p class="card-text">Kurs Açıklaması : {{ detay.description }}</p>
+                <h5 class="card-title text-dark">Kurs Adı : {{ detay.title }}</h5>
+                <p class="card-text ">Kurs Açıklaması : {{ detay.description }}</p>
                <p class="card-text">Kurs Toplam Saat : {{ detay.educationTime  }}   </p>
               <p class="card-text"> Kalan süre : {{ detay.educationTime|sub:detay.countFinished }}</p>
 
-                  <a href="{% url 'index' %}" class="btn btn-dark">Anasayafa</a>
+                  <a href="{% url 'index' %}" class="btn btn-dark">Anasayfa</a>
 
               </div>
             </div>
