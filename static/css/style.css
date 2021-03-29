@@ -1,0 +1,12 @@
+
+
+body {
+    height:1200px;
+}
+
+footer {
+    position: relative;
+    margin-top:600px;
+    background-color: black;
+    margin-bottom: 0;
+}
